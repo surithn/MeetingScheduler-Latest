@@ -1,0 +1,22 @@
+<table class="table movietable">
+    <tr>
+        <td><h3>Details for {{meeting.mName}}</h3></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Meeting</td>
+        <td>{{meeting.mName}}</td>
+    </tr>
+    <tr>
+        <td>Start</td>
+        <td>{{meeting.startTime}}</td>
+    </tr>
+    <tr>
+        <td>End</td>
+        <td>{{meeting.endTime}}</td>
+    </tr>
+
+</table>
+<div>
+    <a class="btn btn-primary" ui-sref="editMeeting({mId:meeting.mId})">Edit</a>
+</div>

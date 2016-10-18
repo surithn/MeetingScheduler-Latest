@@ -1,0 +1,18 @@
+<a ui-sref="newMeeting" class="btn-primary btn-lg nodecoration">Schedule
+	Meeting</a>
+<table class="table movietable">
+	<tr>
+		<td><h3>Meetings</h3></td>
+		<td><h3>Start Time</h3></td>
+		<td><h3>End Time</h3></td>
+		<td></td>
+	</tr>
+	<tr ng-repeat="meeting in meetings">
+		<td>{{meeting.mName}}</td>
+		<td>{{meeting.startTime}}</td>
+		<td>{{meeting.endTime}}</td>
+		<td><a class="btn btn-primary"
+			ui-sref="viewMeeting({mId:meeting.mId})">View</a> <a
+			class="btn btn-danger" ng-click="deleteMeeting(meeting)">Delete</a></td>
+	</tr>
+</table>
