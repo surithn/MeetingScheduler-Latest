@@ -52,6 +52,7 @@ public class MeetingServiceImpl implements MeetingService {
 			data.setStartTime(meeting.getStartTime());
 			data.setEndTime(meeting.getEndTime());
 			data.setmName(meeting.getmName());
+			//data.setAttendants(meeting.getAttendants());
 			return meetingRepository.save(data).getmName();
         } catch (Exception e) {
             return e.getMessage();
