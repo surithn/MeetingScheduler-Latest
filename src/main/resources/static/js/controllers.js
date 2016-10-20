@@ -9,6 +9,7 @@ angular.module('meetingApp.controllers',[]).controller('MeetingsListController',
         if(popupService.showPopup('Really delete this?')){
         	meeting.$delete(function(){
         		popupService.showPopup('Meeting Deleted');
+        		$state.go('meetings');
             });
         }
     }
@@ -20,30 +21,29 @@ angular.module('meetingApp.controllers',[]).controller('MeetingsListController',
 }).controller('MeetingCreateController',function($scope,$state,$stateParams,Meeting){
 
     $scope.meeting=new Meeting();
-
-    $scope.addMeeting=function(){
-        $scope.meeting.$save(function(){
+    $scope.employees = Meeting.getEmployees(function(){});
+    $scope.rooms =Meeting.getRooms(function(){});
+       $scope.addMeeting=function(){
+    	$scope.meeting.attendants = $scope.attendants;
+    	$scope.meeting.mRoom = $scope.rom;
+    	$scope.meeting.$save(function(){
             $state.go('meetings');
         });
     }
 
-}).controller('MeetingEditController',function($scope,$state,$stateParams,Meeting,$http,popupService){
+}).controller('MeetingEditController',function($scope,$state,$stateParams,Meeting,popupService){
 	var urlBase="";
-    $scope.updateMeeting=function(){
-    	 $http.put(urlBase + '/MeetingSchduler/meeting', {
-			 startTime: $scope.meeting.startTime,
-			 endTime: $scope.meeting.endTime,
-			 mName: $scope.meeting.mName,
-			 mId: $scope.meeting.mId
-         }).
-		  success(function(data, status, headers) {
-			  popupService.showPopup('Meeting updated successfully!');
-			  $state.go('meetings');
-		    });
+    $scope.updateMeeting=function(meeting){
+    	meeting.$update(function(){
+    		popupService.showPopup('Meeting Details Updated!');
+    		$state.go('meetings');
+        });
     };
 
     $scope.loadMeeting=function(){
         $scope.meeting=Meeting.get({mId:$stateParams.mId});
+        $scope.employees = $scope.meeting.attendants;
+        $scope.rooms = Meeting.getRooms(function(){});
     };
 
     $scope.loadMeeting();
