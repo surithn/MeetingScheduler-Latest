@@ -15,6 +15,18 @@
         <td>End</td>
         <td>{{meeting.endTime}}</td>
     </tr>
+    <tr>
+        <td>Location</td>
+        <td>{{meeting.mRoom}}</td>
+    </tr>
+    <tr>
+        <td>Attendants</td>
+		<td><table class="table">
+		<tr ng-repeat="attendant in meeting.attendants">
+		<td>{{attendant.name}}</td>
+		</tr>
+		</table> </td>
+	</tr>
 
 </table>
 <div>
