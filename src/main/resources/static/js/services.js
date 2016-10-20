@@ -3,10 +3,22 @@
  */
 
 angular.module('meetingApp.services',[]).factory('Meeting',function($resource){
-    return $resource('http://localhost:8080/MeetingSchduler/meeting/:mId',{mId:'@mId'},{
+    return $resource('/MeetingSchduler/meeting/:mId',{mId:'@mId'},{
+        getEmployees: {
+        	url: '/MeetingSchduler/others/emp',
+            method: 'GET',
+            isArray:true
+        },
+        getRooms: {
+        	url: '/MeetingSchduler/others/room',
+            method: 'GET',
+            isArray:true
+        },
         update: {
+        	url: '/MeetingSchduler/meeting',
             method: 'PUT'
         }
+        
     });
 }).service('popupService',function($window){
     this.showPopup=function(message){
