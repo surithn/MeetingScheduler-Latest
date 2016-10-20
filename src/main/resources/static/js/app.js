@@ -2,7 +2,7 @@
  * Created by Surith.
  */
 
-angular.module('meetingApp',['ui.router','ngResource','meetingApp.controllers','meetingApp.services','angularjs-datetime-picker']);
+angular.module('meetingApp',['ui.router','ngResource','meetingApp.controllers','meetingApp.services','angularjs-datetime-picker','angularjs-dropdown-multiselect']);
 
 angular.module('meetingApp').config(function($stateProvider,$httpProvider){
     $stateProvider.state('meetings',{
