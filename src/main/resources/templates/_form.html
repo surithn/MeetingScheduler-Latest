@@ -2,43 +2,56 @@
 	<label for="mName" class="col-sm-2 control-label">Meeting</label>
 	<div class="col-sm-10">
 		<input type="text" ng-model="meeting.mName" class="form-control"
-			id="mName" placeholder="Meeting Subject here..." />
+			id="mName" placeholder="Meeting Subject here..." required="required"/>
 	</div>
 </div>
 <div class="form-group">
 	<label for="startTime" class="col-sm-2 control-label">Start</label>
 	<div class="col-sm-10">
-		<input ng-model="meeting.startTime" datetime-picker="" size="30"
-			class="form-control" id="startTime" placeholder="Start Date time.." />
+		<input ng-model="meeting.startTime" datetime-picker="" size="30" date-format="MM-dd-yyyy HH:mm"
+			class="form-control" id="startTime" placeholder="MM-dd-yyyy HH:mm" required="required"/>
 	</div>
 </div>
 <div class="form-group">
 	<label for="endTime" class="col-sm-2 control-label">End</label>
 	<div class="col-sm-10">
-		<input ng-model="meeting.endTime" datetime-picker="" size="30"
-			class="form-control" id="endTime" placeholder="End date time.." />
+		<input ng-model="meeting.endTime" datetime-picker="" size="30" date-format="MM-dd-yyyy HH:mm"
+			class="form-control" id="endTime" placeholder="MM-dd-yyyy HH:mm" required="required"/>
 	</div>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="create">
 	<label for="attendants" class="col-sm-2 control-label">Attendants</label>
 	<div class="col-sm-10">
-<!-- 		<multiselect style="width: 400px" class="form-control" ng-model="meeting.attendants" 
-			data-multiple="true" options="person.name for person in employees"
-			id="attendants" > </multiselect> -->
-		<!-- <div ng-dropdown-multiselect="" options="employees" selected-model="meeting.attendants"></div> -->	
-		<select class="form-control" ng-model="attendants"
-			ng-options="person.name for person in employees track by person.id">
+		<select class="form-control" ng-model="meeting.attendants"
+			ng-options="person.name for person in employees track by person.id" required="required">
 				<option value="">-- Select Attendants --</option>
 		</select>
 		
 	</div>
 </div>
-<div class="form-group">
+<div class="form-group" ng-if="edit">
+	<label for="attendants" class="col-sm-2 control-label">Attendants</label>
+	<div class="col-sm-10">
+		<select class="form-control" ng-model="attendants"
+			ng-options="person.name for person in meeting.attendants track by person.id" required="required">
+		</select>
+		
+	</div>
+</div>
+<div class="form-group" ng-if="create">
 	<label for="rooms" class="col-sm-2 control-label">Location</label>
 	<div class="col-sm-10">
-		<select class="form-control" ng-model="rom"
-			ng-options="room.rName for room in rooms">
-				<option value="">-- Select --</option>
+		<select class="form-control" ng-model="meeting.locations"
+			ng-options="room.rName for room in rooms track by room.rId" required="required">
+				<option value="">-- Select Locations--</option>
+		</select>
+	</div>
+</div>
+<div class="form-group" ng-if="edit">
+	<label for="rooms" class="col-sm-2 control-label">Location</label>
+	<div class="col-sm-10">
+		<select class="form-control" ng-model="locations"
+			ng-options="room.rName for room in meeting.locations track by room.rId" required="required">
 		</select>
 	</div>
 </div>
