@@ -17,7 +17,11 @@
     </tr>
     <tr>
         <td>Location</td>
-        <td>{{meeting.mRoom}}</td>
+        <td><table class="table">
+		<tr ng-repeat="room in meeting.locations">
+		<td>{{room.rName}}</td>
+		</tr>
+		</table> </td>
     </tr>
     <tr>
         <td>Attendants</td>
