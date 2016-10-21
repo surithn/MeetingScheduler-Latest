@@ -1,6 +1,7 @@
 package com.MeetingScheduler.BackEnd.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +16,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "meeting")
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="mId")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Meeting {
 
 	public List<Attendants> getAttendants() {
@@ -30,12 +34,12 @@ public class Meeting {
 		this.attendants = attendants;
 	}
 
-	public String getmRoom() {
-		return mRoom;
+	public List<Location> getLocations() {
+		return locations;
 	}
 
-	public void setmRoom(String mRoom) {
-		this.mRoom = mRoom;
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
 	}
 
 	public String getmName() {
@@ -80,14 +84,22 @@ public class Meeting {
 	private String endTime;
 	@Column(name = "m_name")
 	private String mName;
-	@Column(name = "m_room")
-	private String mRoom;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "met_att_junction", joinColumns = {
 			@JoinColumn(name = "m_id", nullable = false, updatable = false) },
 			inverseJoinColumns = { @JoinColumn(name = "a_id",
 					nullable = false, updatable = false) })
+	@JsonProperty("attendants")
 	private List<Attendants> attendants;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "met_loc_junction", joinColumns = {
+			@JoinColumn(name = "m_id", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "l_id",
+					nullable = false, updatable = false) })
+	private List<Location> locations;
 
 	@Override
 	public String toString() {
